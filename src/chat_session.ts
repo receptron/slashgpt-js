@@ -27,8 +27,7 @@ class ChatSession {
     if (this.prompt) {
       this.append_message("system", this.prompt, true);
     }
-
-    this.llm_model = new LlmModel(option);
+    this.llm_model = new LlmModel(this.manifest, option);
   }
 
   botname() {

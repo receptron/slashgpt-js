@@ -1,11 +1,12 @@
 import { ChatData, LlmUsage } from "../types";
 import Manifest from "../manifest";
 import FunctionCall from "../function/function_call";
-import OpenAI, { ClientOptions } from "openai";
+import { ClientOptions } from "openai";
+import { ChatCompletionMessageParam } from "openai/resources/chat";
 declare class LlmModel {
     private engine;
-    constructor(option?: ClientOptions);
-    conv(message: ChatData): OpenAI.Chat.Completions.ChatCompletionMessageParam;
+    constructor(manifest: Manifest, option?: ClientOptions);
+    conv(message: ChatData): ChatCompletionMessageParam;
     generate_response(messages: ChatData[], manifest: Manifest, verbose: boolean): Promise<{
         role: string;
         res: string | null;
