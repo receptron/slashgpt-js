@@ -19,8 +19,8 @@ export class LLMEngineAnthropic extends LLMEngineBase {
     const function_call_param = manifest.function_call();
     const model_name = manifest.model_name();
 
-    const system = (messages.length > 0 && messages[0].role === 'system') ? messages[0].content ?? "" : undefined;
-    
+    const system = messages.length > 0 && messages[0].role === "system" ? messages[0].content ?? "" : undefined;
+
     const send_message = messages
       .filter((m) => {
         return ["user", "function", "assistant"].includes(m.role);
@@ -42,10 +42,10 @@ export class LLMEngineAnthropic extends LLMEngineBase {
 
     const { input_tokens, output_tokens } = chatCompletion.usage;
 
-    const usage = { 
+    const usage = {
       prompt_tokens: input_tokens,
       completion_tokens: output_tokens,
-      total_tokens: input_tokens + output_tokens
+      total_tokens: input_tokens + output_tokens,
     } as LlmUsage;
 
     // function calling not yet support
