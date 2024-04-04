@@ -6,8 +6,7 @@ import FunctionCall from "@/function/function_call";
 import { ClientOptions } from "openai";
 import { ChatCompletionMessageParam } from "openai/resources/chat";
 
-import { LLMEngineBase } from "@/llms/engines/base";
-import { LLMEngineOpenAIGPT } from "@/llms/engines/openaigpt";
+import { LLMEngineBase, LLMEngineOpenAIGPT, LLMEngineAnthropic } from "./engines";
 
 class LlmModel {
   private engine: LLMEngineBase;
@@ -17,7 +16,7 @@ class LlmModel {
     if (model_name && model_name.startsWith("gpt")) {
       this.engine = new LLMEngineOpenAIGPT(option);
     } else if (model_name && model_name.startsWith("claude")) {
-      this.engine = new LLMEngineOpenAIGPT(option);
+      this.engine = new LLMEngineAnthropic(option);
     } else {
       this.engine = new LLMEngineOpenAIGPT(option);
     }
