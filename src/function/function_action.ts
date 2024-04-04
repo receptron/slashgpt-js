@@ -1,5 +1,5 @@
-import { http_request, graphQLRequest } from "./network";
-import { replate_template } from "./utils";
+import { http_request, graphQLRequest } from "@/function/network";
+import { replate_template } from "@/function/utils";
 
 class FuctionAction {
   private function_action_data: Record<string, string>;

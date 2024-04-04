@@ -1,7 +1,7 @@
 import { LlmUsage } from "../../types";
 import Manifest from "../../manifest";
 import FunctionCall from "../../function/function_call";
-import { LLMEngineBase } from "./base";
+import { LLMEngineBase } from "../../llms/engines/base";
 import OpenAI, { ClientOptions } from "openai";
 import { ChatCompletionMessageParam } from "openai/resources/chat";
 export declare class LLMEngineOpenAIGPT extends LLMEngineBase {
