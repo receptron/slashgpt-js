@@ -4,7 +4,7 @@
   "description": "This is ported from Python. This runs in the browser and Node.js. Unlike the Python version, it does not support chat in the cli. This is software used as a library.",
   "main": "lib/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && tsc-alias",
     "eslint": "eslint --fix --ext src/**/*.{ts} tests/**/*.ts",
     "format": "prettier --write '{src,tests}/**/*.ts' .eslintrc.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -27,6 +27,7 @@
     "eslint-plugin-import": "^2.25.2",
     "prettier": "^3.0.3",
     "ts-node": "^10.9.1",
+    "tsc-alias": "^1.8.8",
     "typescript": "^5.2.2"
   },
   "dependencies": {
