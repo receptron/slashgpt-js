@@ -37,12 +37,18 @@ export class LLMEngineAnthropic extends LLMEngineBase {
       messages: [send_message[0]],
     })) as any;
 
-    console.log(chatCompletion);
     const res = chatCompletion.content[0].text;
     const role = chatCompletion.role;
-    // const usage = chatCompletion.usage as LlmUsage;
 
-    // answer["function_call"] may be string, but actucally dict.
+    const { input_tokens, output_tokens } = chatCompletion.usage;
+
+    const usage = { 
+      prompt_tokens: input_tokens,
+      completion_tokens: output_tokens,
+      total_tokens: input_tokens + output_tokens
+    } as LlmUsage;
+
+    // function calling not yet support
     const function_call = null;
 
     return { role, res, function_call, usage: null };
