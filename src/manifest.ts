@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-import { ManifestData } from "./types";
+import { ManifestData } from "@/types";
 
 class Manifest {
   private data: ManifestData;

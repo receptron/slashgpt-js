@@ -1,6 +1,6 @@
-import Manifest from "../manifest";
-import ChatHistory from "../chat_history";
-import FunctionAction from "./function_action";
+import Manifest from "@/manifest";
+import ChatHistory from "@/chat_history";
+import FunctionAction from "@/function/function_action";
 
 class FunctionCall {
   private manifest: Manifest;

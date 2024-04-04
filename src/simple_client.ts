@@ -1,7 +1,6 @@
-import { print_bot } from "./chat_utils";
-import { ChatSession } from "./";
-import { ChatConfig } from "./";
-import { readManifestData } from "./file_utils";
+import { print_bot } from "@/chat_utils";
+import { ChatSession, ChatConfig } from "@/index";
+import { readManifestData } from "@/file_utils";
 
 export const callback = (callback_type: string, data: unknown) => {
   if (callback_type === "bot") {

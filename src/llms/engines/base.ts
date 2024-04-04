@@ -1,7 +1,7 @@
-import { LlmUsage } from "../../types";
+import { LlmUsage } from "@/types";
 
-import Manifest from "../../manifest";
-import FunctionCall from "../../function/function_call";
+import Manifest from "@/manifest";
+import FunctionCall from "@/function/function_call";
 
 import { ChatCompletionMessageParam } from "openai/resources/chat";
 

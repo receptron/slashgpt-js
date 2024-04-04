@@ -6,8 +6,8 @@ import FunctionCall from "@/function/function_call";
 import { ClientOptions } from "openai";
 import { ChatCompletionMessageParam } from "openai/resources/chat";
 
-import { LLMEngineBase } from "./engines/base";
-import { LLMEngineOpenAIGPT } from "./engines/openaigpt";
+import { LLMEngineBase } from "@/llms/engines/base";
+import { LLMEngineOpenAIGPT } from "@/llms/engines/openaigpt";
 
 class LlmModel {
   private engine: LLMEngineBase;

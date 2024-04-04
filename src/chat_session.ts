@@ -1,11 +1,9 @@
-import { ManifestData } from "./types";
-import Manifest from "./manifest";
-import ChatHistory from "./chat_history";
-import ChatConfig from "./chat_config";
-import LlmModel from "./llms/model";
-import { LlmUsage } from "./types";
-
-// import { ClientOptions } from "openai";
+import { ManifestData } from "@/types";
+import Manifest from "@/manifest";
+import ChatHistory from "@/chat_history";
+import ChatConfig from "@/chat_config";
+import LlmModel from "@/llms/model";
+import { LlmUsage } from "@/types";
 
 class ChatSession {
   public username: string;

@@ -1,4 +1,4 @@
-import { ChatData } from "./types";
+import { ChatData } from "@/types";
 
 class ChatHistory {
   private repository: ChatData[];
