@@ -1,7 +1,7 @@
-import { LlmUsage } from "../../types";
+import { LlmUsage } from "@/types";
 
-import Manifest from "../../manifest";
-import FunctionCall from "../../function/function_call";
+import Manifest from "@/manifest";
+import FunctionCall from "@/function/function_call";
 
 import { LLMEngineBase } from "./base";
 import Anthropic, { ClientOptions } from "@anthropic-ai/sdk";
@@ -19,17 +19,19 @@ export class LLMEngineAnthropic extends LLMEngineBase {
     const function_call_param = manifest.function_call();
     const model_name = manifest.model_name();
 
+    const system = (messages.length > 0 && messages[0].role === 'system') ? messages[0].content ?? "" : undefined;
+    
     const send_message = messages
       .filter((m) => {
-        return ["user", "system", "function", "assistant"].includes(m.role);
+        return ["user", "function", "assistant"].includes(m.role);
       })
       .map((a) => {
         const { role, content } = a;
-        return { role: role === "system" ? "user" : role, content } as any;
+        return { role, content } as any;
       });
 
-    console.log(send_message);
     const chatCompletion = (await this.anthropic.messages.create({
+      system,
       max_tokens: 1024,
       model: "claude-3-opus-20240229",
       messages: [send_message[0]],
