@@ -21,12 +21,8 @@ class LlmModel {
       this.engine = new LLMEngineOpenAIGPT(option);
     }
   }
-  conv(message: ChatData) {
-    const { role, content, name } = message;
-    return { role, content, name } as ChatCompletionMessageParam;
-  }
   async generate_response(messages: ChatData[], manifest: Manifest, verbose: boolean) {
-    return await this.engine.chat_completion(messages.map(this.conv), manifest, verbose);
+    return await this.engine.chat_completion(messages.map(this.engine.conv), manifest, verbose);
   }
 }
 
