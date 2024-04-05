@@ -1,4 +1,4 @@
-import { LlmUsage } from "@/types";
+import { ChatData, LlmUsage } from "@/types";
 
 import Manifest from "@/manifest";
 import FunctionCall from "@/function/function_call";
@@ -16,4 +16,9 @@ export abstract class LLMEngineBase {
     function_call: FunctionCall | null;
     usage: LlmUsage | null;
   }>;
+
+  conv(message: ChatData) {
+    const { role, content, name, id } = message;
+    return { role, content, name } as ChatCompletionMessageParam;
+  }
 }

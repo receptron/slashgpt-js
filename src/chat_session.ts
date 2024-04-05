@@ -32,7 +32,7 @@ class ChatSession {
     return this.manifest.botname();
   }
 
-  append_message(role: string, content: string, preset: boolean, usage?: LlmUsage | null, name?: string, function_data?: any) {
+  append_message(role: string, content: string, preset: boolean, usage?: LlmUsage | null, name?: string, function_data?: any, tool_use_id?: string) {
     this.history.append_message({
       role,
       content,
@@ -40,6 +40,7 @@ class ChatSession {
       preset,
       function_data,
       usage,
+      tool_use_id,
     });
   }
   append_user_question(message: string) {
@@ -66,7 +67,7 @@ class ChatSession {
     if (function_call) {
       // for js original feature
       if (function_call.function_name) {
-        this.append_message("function_result", "", false, null, "", function_call.call_arguments);
+        this.append_message("function_result", "", false, null, "", function_call.call_arguments, function_call.tool_use_id);
       }
       // not support emit yet.
       const { function_message, function_name, should_call_llm } = await function_call.process_function_call(this.history, true);
