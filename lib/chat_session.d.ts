@@ -14,8 +14,7 @@ declare class ChatSession {
     botname(): string;
     append_message(role: string, content: string, preset: boolean, usage?: LlmUsage | null, name?: string, function_data?: any, tool_use_id?: string): void;
     append_user_question(message: string): void;
-    call_llm(): Promise<{
-        res: string | null;
+    call_llm(callback: (callback_type: string, data: unknown) => void): Promise<{
         function_call: import("./function/function_call").default | null;
     }>;
     call_loop(callback: (callback_type: string, data: unknown) => void): Promise<void>;

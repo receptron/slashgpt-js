@@ -36,7 +36,7 @@ export class LLMEngineAnthropic extends LLMEngineBase {
       .filter((m) => {
         return ["user", "function", "assistant"].includes(m.role);
       })
-      .map((a: any) => {
+      .map((a: ChatCompletionMessageParam & { id?: string }) => {
         const { role, content } = a;
         if (role === "function") {
           return {

@@ -48,21 +48,21 @@ class ChatSession {
     this.append_message("user", post_message, false);
   }
 
-  async call_llm() {
+  async call_llm(callback: (callback_type: string, data: unknown) => void) {
     const messages = this.history.messages();
     const { role, res, function_call, usage } = await this.llm_model.generate_response(messages, this.manifest, true);
     if (role && res) {
       this.append_message(role, res, false, usage);
     }
-    return { res, function_call };
-  }
-
-  public async call_loop(callback: (callback_type: string, data: unknown) => void) {
-    const { res, function_call } = await this.call_llm();
-
     if (res) {
       callback("bot", res);
     }
+
+    return { function_call };
+  }
+
+  public async call_loop(callback: (callback_type: string, data: unknown) => void) {
+    const { function_call } = await this.call_llm(callback);
 
     if (function_call) {
       // for js original feature
