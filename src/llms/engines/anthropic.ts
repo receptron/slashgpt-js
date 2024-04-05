@@ -1,4 +1,4 @@
-import { LlmUsage } from "@/types";
+import { ChatData, LlmUsage } from "@/types";
 
 import Manifest from "@/manifest";
 import FunctionCall from "@/function/function_call";
@@ -7,12 +7,12 @@ import { LLMEngineBase } from "./base";
 import Anthropic, { ClientOptions } from "@anthropic-ai/sdk";
 import { ChatCompletionMessageParam } from "openai/resources/chat";
 
-const functions2tools = (functions: {name: string, description: string, parameters: any}[]) => {
+const functions2tools = (functions: { name: string; description: string; parameters: any }[]) => {
   return functions.map((f) => {
     const { name, description, parameters } = f;
     return {
       name,
-      description, 
+      description,
       input_schema: parameters,
     };
   });
@@ -40,21 +40,22 @@ export class LLMEngineAnthropic extends LLMEngineBase {
         const { role, content } = a;
         if (role === "function") {
           return {
-            role: 'user',
+            role: "user",
             content: [
               {
-                type: 'tool_result',
+                type: "tool_result",
                 tool_use_id: a.id,
-                content: [{ type: 'text', text: content}],
+                content: [{ type: "text", text: content }],
               },
             ],
-          }
+          };
         }
         return { role, content } as any;
       });
+    // console.log(JSON.stringify(send_message, null , "\t"), functions);
+
     const chatCompletion = await (() => {
       if (functions) {
-        
         return this.anthropic.beta.tools.messages.create({
           system,
           max_tokens: 1024,
@@ -83,18 +84,17 @@ export class LLMEngineAnthropic extends LLMEngineBase {
     } as LlmUsage;
 
     const tu = (() => {
-      if(chatCompletion.stop_reason === 'tool_use') {
-        const tool_use = chatCompletion.content.find((a: any) => a.type ===  'tool_use');
+      if (chatCompletion.stop_reason === "tool_use") {
+        const tool_use = chatCompletion.content.find((a: any) => a.type === "tool_use");
         if (tool_use) {
-          return { name: tool_use.name, arguments: tool_use.input, tool_use_id: tool_use.id }
+          return { name: tool_use.name, arguments: tool_use.input, tool_use_id: tool_use.id };
         }
       }
       return null;
-
-    })()
+    })();
     if (tu) {
       const function_call = new FunctionCall(tu as any, manifest);
-      return { role: "functions", res: null, function_call, usage: null };
+      return { role, res: chatCompletion.content, function_call, usage: null };
     }
     return { role, res, function_call: null, usage: null };
   }
@@ -106,5 +106,4 @@ export class LLMEngineAnthropic extends LLMEngineBase {
     }
     return { role, content, name } as ChatCompletionMessageParam;
   }
-
 }

@@ -25,4 +25,6 @@ export type ChatData = {
   preset?: boolean;
   function_data?: any;
   usage?: LlmUsage | null;
+  id?: string; // for "function";
+  tool_use_id?: string; // for "function_result"
 };

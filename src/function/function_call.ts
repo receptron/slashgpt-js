@@ -10,6 +10,7 @@ class FunctionCall {
 
   public function_name: string;
   public call_arguments: Record<string, string>;
+  public tool_use_id: string | undefined;
 
   constructor(data: Record<string, string>, manifest: Manifest) {
     this.function_call_data = data;
@@ -19,7 +20,9 @@ class FunctionCall {
     this.function_name = this.name();
     const actions = this.manifest.actions();
     this.function_action = actions && actions[this.function_name] ? new FunctionAction(actions[this.function_name]) : null;
+
     this.call_arguments = this.get_call_arguments();
+    this.tool_use_id = data.tool_use_id;
   }
   function_data() {
     return {
@@ -57,10 +60,12 @@ class FunctionCall {
     })();
 
     if (function_message) {
+      const last = history.last_message();
       history.append_message({
         role: "function",
         content: function_message,
         name: this.function_name,
+        id: last?.tool_use_id, // for tools
       });
     }
     const should_call_llm = !this.manifest.skip_function_result() && !!function_message;
