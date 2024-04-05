@@ -6,6 +6,7 @@ declare class FunctionCall {
     private function_action;
     function_name: string;
     call_arguments: Record<string, string>;
+    tool_use_id: string | undefined;
     constructor(data: Record<string, string>, manifest: Manifest);
     function_data(): {
         function_name: string;

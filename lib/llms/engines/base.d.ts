@@ -1,4 +1,4 @@
-import { LlmUsage } from "../../types";
+import { ChatData, LlmUsage } from "../../types";
 import Manifest from "../../manifest";
 import FunctionCall from "../../function/function_call";
 import { ChatCompletionMessageParam } from "openai/resources/chat";
@@ -9,4 +9,5 @@ export declare abstract class LLMEngineBase {
         function_call: FunctionCall | null;
         usage: LlmUsage | null;
     }>;
+    conv(message: ChatData): ChatCompletionMessageParam;
 }

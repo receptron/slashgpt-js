@@ -12,7 +12,7 @@ declare class ChatSession {
     private config;
     constructor(config: ChatConfig, manifest_data: ManifestData, option?: Record<string, any>);
     botname(): string;
-    append_message(role: string, content: string, preset: boolean, usage?: LlmUsage | null, name?: string, function_data?: any): void;
+    append_message(role: string, content: string, preset: boolean, usage?: LlmUsage | null, name?: string, function_data?: any, tool_use_id?: string): void;
     append_user_question(message: string): void;
     call_llm(): Promise<{
         res: string | null;
