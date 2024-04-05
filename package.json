@@ -32,7 +32,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.19.1",
+    "@anthropic-ai/sdk": "^0.20.1",
     "graphql": "^16.8.1",
     "graphql-request": "^6.1.0",
     "openai": "^4.12.4",
