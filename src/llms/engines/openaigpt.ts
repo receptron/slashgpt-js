@@ -23,7 +23,6 @@ export class LLMEngineOpenAIGPT extends LLMEngineBase {
     const send_message = messages.filter((m) => {
       return ["user", "system", "function", "assistant"].includes(m.role);
     });
-    console.log(send_message);
     const chatCompletion = await this.openai.chat.completions.create({
       messages: send_message,
       model: model_name || "gpt-3.5-turbo",
