@@ -14,5 +14,5 @@ test("manifest test", () => {
     actions: {},
     sample: "",
   });
-  assert.equal(manifest.botname(), "Agent()");
+  assert.strictEqual(manifest.botname(), "Agent()");
 });
