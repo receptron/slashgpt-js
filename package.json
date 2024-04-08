@@ -1,6 +1,6 @@
 {
   "name": "slashgpt",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "This is ported from Python. This runs in the browser and Node.js. Unlike the Python version, it does not support chat in the cli. This is software used as a library.",
   "main": "lib/index.js",
   "scripts": {
