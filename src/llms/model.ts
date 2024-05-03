@@ -21,8 +21,8 @@ class LlmModel {
       this.engine = new LLMEngineOpenAIGPT(option);
     }
   }
-  async generate_response(messages: ChatData[], manifest: Manifest, verbose: boolean) {
-    return await this.engine.chat_completion(messages.map(this.engine.conv), manifest, verbose);
+  async generate_response(messages: ChatData[], manifest: Manifest, verbose: boolean, callbackStraming?: (message: string) => void) {
+    return await this.engine.chat_completion(messages.map(this.engine.conv), manifest, verbose, callbackStraming);
   }
 }
 

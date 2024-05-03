@@ -25,7 +25,7 @@ export class LLMEngineAnthropic extends LLMEngineBase {
     super();
     this.anthropic = option ? new Anthropic(option) : new Anthropic();
   }
-  async chat_completion(messages: ChatCompletionMessageParam[], manifest: Manifest, verbose: boolean) {
+  async chat_completion(messages: ChatCompletionMessageParam[], manifest: Manifest, verbose: boolean, callbackStraming?: (message: string) => void) {
     const functions = manifest.functions();
     const function_call_param = manifest.function_call();
     const model_name = manifest.model_name();
