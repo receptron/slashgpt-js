@@ -34,10 +34,12 @@ export class LLMEngineOpenAIGPT extends LLMEngineBase {
     const current = [];
     for await (const message of chatStream) {
       const token = message.choices[0].delta.content;
-      current.push(token);
-      // console.log(current.join(""))
-      if (callbackStraming) {
-        callbackStraming(token)
+      if (token) {
+        current.push(token);
+        // console.log(current.join(""))
+        if (callbackStraming) {
+          callbackStraming(token)
+        }
       }
     }
 

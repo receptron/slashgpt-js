@@ -5,7 +5,7 @@ import { ClientOptions } from "openai";
 declare class LlmModel {
     private engine;
     constructor(manifest: Manifest, option?: ClientOptions);
-    generate_response(messages: ChatData[], manifest: Manifest, verbose: boolean): Promise<{
+    generate_response(messages: ChatData[], manifest: Manifest, verbose: boolean, callbackStraming?: (message: string) => void): Promise<{
         role: string;
         res: string | null;
         function_call: FunctionCall | null;
