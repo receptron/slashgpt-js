@@ -26,16 +26,18 @@ export class LLMEngineOpenAIGPT extends LLMEngineBase {
     const chatStream = await this.openai.beta.chat.completions.stream({
       messages: send_message,
       model: model_name || "gpt-3.5-turbo",
+      stream: true,
       functions,
       function_call: function_call_param,
     });
 
     const current = [];
     for await (const message of chatStream) {
-      current.push(message.choices[0].delta.content);
+      const token = message.choices[0].delta.content;
+      current.push(token);
       // console.log(current.join(""))
       if (callbackStraming) {
-        callbackStraming(current.join(""))
+        callbackStraming(token)
       }
     }
 
