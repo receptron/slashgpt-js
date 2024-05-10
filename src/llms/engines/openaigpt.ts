@@ -15,7 +15,7 @@ export class LLMEngineOpenAIGPT extends LLMEngineBase {
     super();
     this.openai = option ? new OpenAI(option) : new OpenAI();
   }
-  async chat_completion(messages: ChatCompletionMessageParam[], manifest: Manifest, verbose: boolean) {
+  async chat_completion(messages: ChatCompletionMessageParam[], manifest: Manifest, verbose: boolean, callbackStraming?: (message: string) => void) {
     const functions = manifest.functions();
     const function_call_param = manifest.function_call();
     const model_name = manifest.model_name();
@@ -23,13 +23,27 @@ export class LLMEngineOpenAIGPT extends LLMEngineBase {
     const send_message = messages.filter((m) => {
       return ["user", "system", "function", "assistant"].includes(m.role);
     });
-    const chatCompletion = await this.openai.chat.completions.create({
+    const chatStream = await this.openai.beta.chat.completions.stream({
       messages: send_message,
       model: model_name || "gpt-3.5-turbo",
+      stream: true,
       functions,
       function_call: function_call_param,
     });
 
+    const current = [];
+    for await (const message of chatStream) {
+      const token = message.choices[0].delta.content;
+      if (token) {
+        current.push(token);
+        // console.log(current.join(""))
+        if (callbackStraming) {
+          callbackStraming(token)
+        }
+      }
+    }
+
+    const chatCompletion = await chatStream.finalChatCompletion();
     const answer = chatCompletion.choices[0].message;
     const res = answer.content;
     const role = answer.role;

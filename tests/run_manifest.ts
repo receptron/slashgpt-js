@@ -18,7 +18,9 @@ const main = async () => {
   const session = new ChatSession(config, manifest);
 
   session.append_user_question(manifest.sample);
-  await session.call_loop(callback);
+  await session.call_loop(callback, (message: string) => {
+    console.log(message);
+  });
 
   console.log(session.history);
 };

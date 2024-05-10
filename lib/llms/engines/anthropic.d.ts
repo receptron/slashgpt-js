@@ -7,7 +7,7 @@ import { ChatCompletionMessageParam } from "openai/resources/chat";
 export declare class LLMEngineAnthropic extends LLMEngineBase {
     anthropic: Anthropic;
     constructor(option?: ClientOptions);
-    chat_completion(messages: ChatCompletionMessageParam[], manifest: Manifest, verbose: boolean): Promise<{
+    chat_completion(messages: ChatCompletionMessageParam[], manifest: Manifest, verbose: boolean, callbackStraming?: (message: string) => void): Promise<{
         role: any;
         res: any;
         function_call: FunctionCall;

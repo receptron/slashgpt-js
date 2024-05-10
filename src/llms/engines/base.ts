@@ -10,6 +10,7 @@ export abstract class LLMEngineBase {
     messages: ChatCompletionMessageParam[],
     manifest: Manifest,
     verbose: boolean,
+    callbackStraming?: (message: string) => void,
   ): Promise<{
     role: string;
     res: string | null;
