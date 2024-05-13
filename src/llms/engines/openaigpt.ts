@@ -38,7 +38,7 @@ export class LLMEngineOpenAIGPT extends LLMEngineBase {
         current.push(token);
         // console.log(current.join(""))
         if (callbackStraming) {
-          callbackStraming(token)
+          callbackStraming(token);
         }
       }
     }
