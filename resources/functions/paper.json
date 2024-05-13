@@ -26,14 +26,7 @@
           "description": "結果:提案手法によって得られた結果"
         }
       },
-      "required": [
-        "title",
-        "keywords",
-        "issues",
-        "methods",
-        "results"
-      ]
+      "required": ["title", "keywords", "issues", "methods", "results"]
     }
   }
 ]
-              

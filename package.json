@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc && tsc-alias",
     "eslint": "eslint",
-    "format": "prettier --write '{src,tests}/**/*.{ts,json}' eslint.config.mjs",
+    "format": "prettier --write '{src,tests,resources,manifests}/**/*.{ts,json,yaml,yml}' eslint.config.mjs",
     "test": "node --test  -r tsconfig-paths/register --require ts-node/register ./tests/*_test.ts"
   },
   "repository": {

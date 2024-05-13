@@ -13,11 +13,9 @@
       "mime_type": "text/calendar",
       "message": "{ 'result':'Success', 'invitation_link': '{url}' }"
     },
-    "send_invitation": { "type": "message_template", "message":"Success. The invitation was sent to {recipients}" }
+    "send_invitation": { "type": "message_template", "message": "Success. The invitation was sent to {recipients}" }
   },
-  "intro": [
-    "Please let me know if there any event you want to add to your calendar" 
-  ],
+  "intro": ["Please let me know if there any event you want to add to your calendar"],
   "sample": "Please schedule a meeting with Tim Cook from 1pm pacific time for 30 minutes on next tuesday, at his office, then, send the invitation to Tim (tim@apple.com).",
   "prompt": [
     "Don't make assumptions about what values to plug into functions.",
