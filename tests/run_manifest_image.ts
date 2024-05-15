@@ -1,7 +1,7 @@
 // put manifest file into manifests/main/
 // json and yaml ( or yml) support.
 // run script with open api key
-// OPENAI_API_KEY=sk-xxxxxx npx ts-node -r tsconfig-paths/register tests/run_manifest.ts business.json
+// OPENAI_API_KEY=sk-xxxxxx npx ts-node -r tsconfig-paths/register tests/run_manifest_image.ts image-gpt4.json
 
 import path from "path";
 import * as fs from "fs";
