@@ -3,7 +3,8 @@ import Manifest from "@/manifest";
 import ChatHistory from "@/chat_history";
 import ChatConfig from "@/chat_config";
 import LlmModel from "@/llms/model";
-import { LlmUsage } from "@/types";
+import { LlmUsage, ChatDataContent } from "@/types";
+import * as fs from "fs";
 
 class ChatSession {
   public username: string;
@@ -32,7 +33,15 @@ class ChatSession {
     return this.manifest.botname();
   }
 
-  append_message(role: string, content: string, preset: boolean, usage?: LlmUsage | null, name?: string, function_data?: any, tool_use_id?: string) {
+  append_message(
+    role: string,
+    content: string | ChatDataContent[],
+    preset: boolean,
+    usage?: LlmUsage | null,
+    name?: string,
+    function_data?: any,
+    tool_use_id?: string,
+  ) {
     this.history.append_message({
       role,
       content,
@@ -46,6 +55,37 @@ class ChatSession {
   append_user_question(message: string) {
     const post_message = this.manifest.format_question(message);
     this.append_message("user", post_message, false);
+  }
+  append_user_image(message: string, imagePath: string) {
+    const base64Image = (() => {
+      try {
+        // Read the file as a binary buffer
+        const imageBuffer = fs.readFileSync(imagePath);
+        // Convert the buffer to a base64 string
+        const base64String = imageBuffer.toString("base64");
+        return base64String;
+      } catch (error) {
+        console.error("Error reading file:", error);
+        throw error;
+      }
+    })();
+    const post_message = this.manifest.format_question(message);
+    this.append_message(
+      "user",
+      [
+        {
+          type: "text",
+          text: post_message,
+        },
+        {
+          type: "image_url",
+          image_url: {
+            url: `data:image/png;base64,${base64Image}`,
+          },
+        },
+      ],
+      false,
+    );
   }
 
   async call_llm(callback: (callback_type: string, data: unknown) => void, callbackStraming?: (message: string) => void) {

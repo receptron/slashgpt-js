@@ -1,0 +1,7 @@
+{
+  "title": "Image",
+  "description": "image",
+  "model": "gpt-4o",
+  "about": "isamu",
+  "sample": "What kind of fish is this?"
+}

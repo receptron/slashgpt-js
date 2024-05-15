@@ -18,9 +18,11 @@ export type ManifestData = {
   skip_function_result?: boolean;
 };
 
+export type ChatDataContent = { type: string; text: string } | { type: string; image_url: { url: string } };
+
 export type ChatData = {
   role: string;
-  content: string;
+  content: string | ChatDataContent[];
   name?: string;
   preset?: boolean;
   function_data?: any;
