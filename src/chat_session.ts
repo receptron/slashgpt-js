@@ -4,7 +4,7 @@ import ChatHistory from "@/chat_history";
 import ChatConfig from "@/chat_config";
 import LlmModel from "@/llms/model";
 import { LlmUsage, ChatDataContent } from "@/types";
-import * as fs from "fs";
+import { base64Image } from "@/image_util";
 
 class ChatSession {
   public username: string;
@@ -57,18 +57,7 @@ class ChatSession {
     this.append_message("user", post_message, false);
   }
   append_user_image(message: string, imagePath: string) {
-    const base64Image = (() => {
-      try {
-        // Read the file as a binary buffer
-        const imageBuffer = fs.readFileSync(imagePath);
-        // Convert the buffer to a base64 string
-        const base64String = imageBuffer.toString("base64");
-        return base64String;
-      } catch (error) {
-        console.error("Error reading file:", error);
-        throw error;
-      }
-    })();
+    const imageData = base64Image(imagePath);
     const post_message = this.manifest.format_question(message);
     this.append_message(
       "user",
@@ -80,7 +69,7 @@ class ChatSession {
         {
           type: "image_url",
           image_url: {
-            url: `data:image/png;base64,${base64Image}`,
+            url: imageData,
           },
         },
       ],
