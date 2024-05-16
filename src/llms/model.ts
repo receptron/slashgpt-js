@@ -44,7 +44,7 @@ type LLMModelData = {
 
 export class LlmModel {
   private engine: LLMEngineBase;
-  private model_data: LLMModelData;
+  public model_data: LLMModelData;
 
   constructor(manifest: Manifest, option?: ClientOptions) {
     const model_name = manifest.model_name();

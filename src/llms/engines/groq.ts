@@ -33,13 +33,13 @@ export class LLMEngineGroq extends LLMEngineBase {
     const options: ChatCompletionCreateParamsStreaming = {
       messages: send_message,
       model: model_name,
-      temperature: 0.7,
+      temperature: manifest.temperature(),
       stream: true,
     };
 
-    //if (max_tokens) {
-    // options.max_tokens = max_tokens;
-    //}
+    if (this.llm_models.model_data.max_token) {
+      options.max_tokens = this.llm_models.model_data.max_token;
+    }
     if (tools) {
       options.tools = tools;
       // options.tool_choice = tool_choice ?? ("auto" as Groq.Chat.CompletionCreateParams.ToolChoice);
