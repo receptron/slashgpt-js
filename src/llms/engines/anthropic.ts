@@ -3,7 +3,9 @@ import { ChatData, LlmUsage } from "@/types";
 import Manifest from "@/manifest";
 import FunctionCall from "@/function/function_call";
 
-import { LLMEngineBase } from "./base";
+import { LLMEngineBase } from "@/llms/engines/base";
+import { LlmModel } from "@/llms/model";
+
 import Anthropic, { ClientOptions } from "@anthropic-ai/sdk";
 import { ChatCompletionMessageParam } from "openai/resources/chat";
 
@@ -21,7 +23,7 @@ const functions2tools = (functions: { name: string; description: string; paramet
 export class LLMEngineAnthropic extends LLMEngineBase {
   anthropic: Anthropic;
 
-  constructor(option?: ClientOptions) {
+  constructor(model: LlmModel, option?: ClientOptions) {
     super();
     this.anthropic = option ? new Anthropic(option) : new Anthropic();
   }

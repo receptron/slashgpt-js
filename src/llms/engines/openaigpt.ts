@@ -4,6 +4,7 @@ import Manifest from "@/manifest";
 import FunctionCall from "@/function/function_call";
 
 import { LLMEngineBase } from "@/llms/engines/base";
+import { LlmModel } from "@/llms/model";
 
 import OpenAI, { ClientOptions } from "openai";
 import { ChatCompletionMessageParam } from "openai/resources/chat";
@@ -11,7 +12,7 @@ import { ChatCompletionMessageParam } from "openai/resources/chat";
 export class LLMEngineOpenAIGPT extends LLMEngineBase {
   openai: OpenAI;
 
-  constructor(option?: ClientOptions) {
+  constructor(model: LlmModel, option?: ClientOptions) {
     super();
     this.openai = option ? new OpenAI(option) : new OpenAI();
   }

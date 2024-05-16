@@ -1,3 +1,5 @@
+export type { Manifest } from "@/manifest";
+
 export type LlmUsage = {
   prompt_tokens: number;
   completion_tokens: number;
@@ -11,7 +13,7 @@ export type ManifestData = {
   temperature: number;
   model: string;
   prompt: string[];
-  actions: any;
+  actions?: any;
   sample: string;
   functions?: string | Record<string, string>;
   function_call?: string;
