@@ -50,6 +50,9 @@ class Manifest {
   public skip_function_result() {
     return !!this.data.skip_function_result;
   }
+  public temperature() {
+    return this.data.temperature;
+  }
 }
 
 export default Manifest;

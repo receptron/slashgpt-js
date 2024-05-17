@@ -15,7 +15,7 @@ export type ManifestData = {
   prompt: string[];
   actions?: any;
   sample: string;
-  functions?: string | Record<string, string>;
+  functions?: string | Record<string, string> | any;
   function_call?: string;
   skip_function_result?: boolean;
 };
