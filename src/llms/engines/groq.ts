@@ -12,6 +12,13 @@ import { ChatCompletionMessageParam } from "openai/resources/chat";
 import { Groq } from "groq-sdk";
 import { ChatCompletionCreateParams, ChatCompletionCreateParamsNonStreaming, ChatCompletionCreateParamsStreaming } from "groq-sdk/resources/chat/completions";
 
+const get_tool_choice = (tools: any[]) => {
+  return {
+    type: "function",
+    function: { name: tools[0]["function"]["name"] },
+  };
+};
+
 export class LLMEngineGroq extends LLMEngineBase {
   groq: Groq;
   llm_models: LlmModel;
@@ -30,22 +37,49 @@ export class LLMEngineGroq extends LLMEngineBase {
       return ["user", "system", "function", "assistant"].includes(m.role);
     }) as Groq.Chat.CompletionCreateParams.Message[];
 
-    const options: ChatCompletionCreateParamsStreaming = {
+    const streamOption: ChatCompletionCreateParamsStreaming = {
       messages: send_message,
       model: model_name,
       temperature: manifest.temperature(),
       stream: true,
     };
+    const nonStreamOption: ChatCompletionCreateParamsNonStreaming = {
+      messages: send_message,
+      model: model_name,
+      temperature: manifest.temperature(),
+    };
+
+    const isStreaming = !tools;
+    const options: ChatCompletionCreateParams = isStreaming ? streamOption : nonStreamOption;
 
     if (this.llm_models.model_data.max_token) {
       options.max_tokens = this.llm_models.model_data.max_token;
     }
     if (tools) {
       options.tools = tools;
-      // options.tool_choice = tool_choice ?? ("auto" as Groq.Chat.CompletionCreateParams.ToolChoice);
-      options.tool_choice = "auto" as Groq.Chat.CompletionCreateParams.ToolChoice;
+      options.tool_choice = get_tool_choice(tools) as Groq.Chat.CompletionCreateParams.ToolChoice;
     }
 
+    if (!options.stream) {
+      const result = await this.groq.chat.completions.create(options);
+
+      const answer = result.choices[0].message;
+      const res = answer.content;
+      const role = answer.role;
+
+      const function_call = (() => {
+        if (tools && answer["tool_calls"] && answer["tool_calls"][0]) {
+          const name = answer["tool_calls"][0]?.function?.name;
+          const function_arguments = answer["tool_calls"][0]?.function?.arguments;
+          const data = { name, arguments: function_arguments };
+          return new FunctionCall(data as any, manifest);
+        }
+        return null;
+      })();
+
+      console.log({ role, res, function_call, usage: null });
+      return { role, res, function_call, usage: null };
+    }
     // streaming
     const stream = await this.groq.chat.completions.create(options);
     let lastMessage = null;
