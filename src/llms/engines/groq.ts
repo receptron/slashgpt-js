@@ -1,4 +1,3 @@
-
 import Manifest from "@/manifest";
 import FunctionCall from "@/function/function_call";
 
@@ -26,7 +25,7 @@ export class LLMEngineGroq extends LLMEngineBase {
     super();
     this.llm_models = model;
     const api_key = this.llm_models.get_api_key();
-    this.groq = api_key && process.env[api_key] ? new Groq({ apiKey: process.env[api_key] }) : new Groq();
+    this.groq = api_key ? new Groq({ apiKey: api_key }) : new Groq();
   }
   async chat_completion(messages: ChatCompletionMessageParam[], manifest: Manifest, verbose: boolean, callbackStraming?: (message: string) => void) {
     const tools = manifest.functions();
@@ -76,7 +75,7 @@ export class LLMEngineGroq extends LLMEngineBase {
         return null;
       })();
 
-      console.log({ role, res, function_call, usage: null });
+      // console.log({ role, res, function_call, usage: null });
       return { role, res, function_call, usage: null };
     }
     // streaming
