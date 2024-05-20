@@ -1,5 +1,5 @@
 import { ManifestData } from "./types";
-declare class Manifest {
+export declare class Manifest {
     private data;
     base_dir: string;
     private agent_name;
@@ -14,5 +14,6 @@ declare class Manifest {
         name: string;
     } | undefined;
     skip_function_result(): boolean;
+    temperature(): number;
 }
 export default Manifest;

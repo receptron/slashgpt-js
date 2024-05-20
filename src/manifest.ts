@@ -3,7 +3,7 @@ import path from "path";
 
 import { ManifestData } from "@/types";
 
-class Manifest {
+export class Manifest {
   private data: ManifestData;
   public base_dir: string;
   private agent_name: string;

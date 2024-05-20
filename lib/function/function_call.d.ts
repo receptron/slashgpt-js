@@ -14,7 +14,7 @@ declare class FunctionCall {
     };
     name(): string;
     get_call_arguments(): any;
-    process_function_call(history: ChatHistory, verbose?: boolean): Promise<{
+    process_function_call(history: ChatHistory, __verbose?: boolean): Promise<{
         function_message: null;
         function_name: null;
         should_call_llm: boolean;

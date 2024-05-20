@@ -1,3 +1,4 @@
+export type { Manifest } from "./manifest";
 export type LlmUsage = {
     prompt_tokens: number;
     completion_tokens: number;
@@ -10,15 +11,24 @@ export type ManifestData = {
     temperature: number;
     model: string;
     prompt: string[];
-    actions: any;
+    actions?: any;
     sample: string;
-    functions?: string | Record<string, string>;
+    functions?: string | Record<string, string> | any;
     function_call?: string;
     skip_function_result?: boolean;
 };
+export type ChatDataContent = {
+    type: string;
+    text: string;
+} | {
+    type: string;
+    image_url: {
+        url: string;
+    };
+};
 export type ChatData = {
     role: string;
-    content: string;
+    content: string | ChatDataContent[];
     name?: string;
     preset?: boolean;
     function_data?: any;
