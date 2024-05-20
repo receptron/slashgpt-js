@@ -19,7 +19,7 @@ export abstract class LLMEngineBase {
   }>;
 
   conv(message: ChatData) {
-    const { role, content, name, id } = message;
+    const { role, content, name } = message;
     return { role, content, name } as ChatCompletionMessageParam;
   }
 }

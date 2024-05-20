@@ -29,7 +29,6 @@ export class LLMEngineAnthropic extends LLMEngineBase {
   }
   async chat_completion(messages: ChatCompletionMessageParam[], manifest: Manifest, verbose: boolean, callbackStraming?: (message: string) => void) {
     const functions = manifest.functions();
-    const function_call_param = manifest.function_call();
     const model_name = manifest.model_name();
 
     const system = messages.length > 0 && messages[0].role === "system" ? messages[0].content ?? "" : undefined;
@@ -66,7 +65,7 @@ export class LLMEngineAnthropic extends LLMEngineBase {
         }) as any;
       }
       const stream = (callback?: (message: string) => void) => {
-        return new Promise((resolved, reject) => {
+        return new Promise((resolved, __reject) => {
           this.anthropic.messages
             .stream({
               max_tokens: 1024,
@@ -110,7 +109,7 @@ export class LLMEngineAnthropic extends LLMEngineBase {
       const function_call = new FunctionCall(tu as any, manifest);
       return { role, res: chatCompletion.content, function_call, usage: null };
     }
-    return { role, res, function_call: null, usage: null };
+    return { role, res, function_call: null, usage };
   }
 
   conv(message: ChatData) {

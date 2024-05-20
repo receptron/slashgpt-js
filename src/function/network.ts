@@ -50,10 +50,10 @@ export const http_request = async (
 
 export const graphQLRequest = async (__url: string, __headers: Record<string, string>, __appkey_value: string, http_arguments: Record<string, string>) => {
   try {
-    const { url, headers } = get_url_params(__url, __headers, __appkey_value, http_arguments);
+    const { url } = get_url_params(__url, __headers, __appkey_value, http_arguments);
 
     const query = http_arguments["query"];
-    const params = http_arguments["variables"];
+    // const params = http_arguments["variables"];
     const document = gql`
       ${query}
     `;

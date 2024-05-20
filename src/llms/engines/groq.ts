@@ -1,4 +1,3 @@
-import { LlmUsage } from "@/types";
 
 import Manifest from "@/manifest";
 import FunctionCall from "@/function/function_call";
@@ -6,7 +5,7 @@ import FunctionCall from "@/function/function_call";
 import { LLMEngineBase } from "@/llms/engines/base";
 import { LlmModel } from "@/llms/model";
 
-import OpenAI, { ClientOptions } from "openai";
+import { ClientOptions } from "openai";
 import { ChatCompletionMessageParam } from "openai/resources/chat";
 
 import { Groq } from "groq-sdk";
@@ -23,7 +22,7 @@ export class LLMEngineGroq extends LLMEngineBase {
   groq: Groq;
   llm_models: LlmModel;
 
-  constructor(model: LlmModel, option?: ClientOptions) {
+  constructor(model: LlmModel, __option?: ClientOptions) {
     super();
     this.llm_models = model;
     const api_key = this.llm_models.get_api_key();
@@ -82,7 +81,6 @@ export class LLMEngineGroq extends LLMEngineBase {
     }
     // streaming
     const stream = await this.groq.chat.completions.create(options);
-    let lastMessage = null;
     const contents = [];
     for await (const message of stream) {
       const token = message.choices[0].delta.content;
@@ -92,9 +90,7 @@ export class LLMEngineGroq extends LLMEngineBase {
         }
         contents.push(token);
       }
-      lastMessage = message as any;
     }
-    // return lastMessage;
     return { role: "assistant", res: contents.join(""), function_call: null, usage: null };
   }
 }

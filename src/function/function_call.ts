@@ -44,7 +44,7 @@ class FunctionCall {
     }
     return call_arguments;
   }
-  public async process_function_call(history: ChatHistory, verbose: boolean = false) {
+  public async process_function_call(history: ChatHistory, __verbose: boolean = false) {
     if (!this.function_name) {
       return {
         function_message: null,
