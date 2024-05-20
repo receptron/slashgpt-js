@@ -4,7 +4,7 @@ import Manifest from "@/manifest";
 
 import { ClientOptions } from "openai";
 
-import { LLMEngineBase, LLMEngineOpenAIGPT, LLMEngineAnthropic, LLMEngineHuggingface, LLMEngineGroq } from "./engines";
+import { LLMEngineBase, LLMEngineOpenAIGPT, LLMEngineAnthropic, LLMEngineHuggingface, LLMEngineGroq, LLMEngineReplicate } from "./engines";
 
 const default_llm_models = {
   gpt: {
@@ -31,6 +31,12 @@ const default_llm_models = {
     api_key: "GROQ_API_KEY",
     max_token: 1024,
   },
+  replicate: {
+    engine_name: "replicate",
+    model_name: "stability-ai",
+    api_key: "REPLICATE_API_KEY",
+    max_token: 1024,
+  },
 };
 
 type LLMModelData = {
@@ -47,7 +53,7 @@ export class LlmModel {
   constructor(manifest: Manifest, option?: ClientOptions) {
     const model_name = manifest.model_name();
     const matched_model = Object.values(default_llm_models).find((model) => {
-      return model.model_name === model_name;
+      return model_name.startsWith(model.model_name);
     });
     if (matched_model) {
       this.model_data = matched_model;
@@ -62,6 +68,9 @@ export class LlmModel {
         return;
       } else if (matched_model.engine_name === "groq") {
         this.engine = new LLMEngineGroq(this, option);
+        return;
+      } else if (matched_model.engine_name === "replicate") {
+        this.engine = new LLMEngineReplicate(this, option);
         return;
       }
       throw new Error("no llm engine");
