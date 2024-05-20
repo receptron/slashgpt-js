@@ -7,7 +7,7 @@ export default [
     files: ["src/**/*.{ts,yaml,yml,json}"],
   },
   {
-    ignores: ["lib/**/*", "lib/*", "**/*.js", "tests/**", "*.ts"],
+    ignores: ["lib/**/*", "lib/*", "**/*.js", "*.ts"],
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommended,

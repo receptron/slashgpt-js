@@ -4,7 +4,6 @@
 // OPENAI_API_KEY=sk-xxxxxx npx ts-node -r tsconfig-paths/register tests/run_manifest_image.ts image-gpt4.json
 
 import path from "path";
-import * as fs from "fs";
 
 import { getFilePath, getBasePath } from "./common";
 import { readManifestData } from "@/file_utils";

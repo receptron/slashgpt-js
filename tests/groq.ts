@@ -1,5 +1,5 @@
 // import readline from "readline";
-import { getFilePath, getBasePath } from "./common";
+import { getBasePath } from "./common";
 import { callback } from "../src/simple_client";
 
 import { ChatSession } from "../src/";
