@@ -67,18 +67,20 @@ export class LLMEngineAnthropic extends LLMEngineBase {
       }
       const stream = (callback?: (message: string) => void) => {
         return new Promise((resolved, reject) => {
-          this.anthropic.messages.stream(
-            {
+          this.anthropic.messages
+            .stream({
               max_tokens: 1024,
               model: model_name,
               messages: send_message,
-            } as any).on('text', (t: any) => {
+            } as any)
+            .on("text", (t: any) => {
               if (callback) {
                 callback(t);
               }
-            }).on("finalMessage", (t: any) => {
-              resolved(t);
             })
+            .on("finalMessage", (t: any) => {
+              resolved(t);
+            });
         });
       };
       return stream(callbackStraming);
