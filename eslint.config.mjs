@@ -4,10 +4,10 @@ import tseslint from "typescript-eslint";
 
 export default [
   {
-    files: ["{src,test,samles}/**/*.{js,ts,yaml,yml,json}"],
+    files: ["src/**/*.{ts,yaml,yml,json}"],
   },
   {
-    ignores: ["lib/**/*", "*.ts"],
+    ignores: ["lib/**/*", "lib/*", "**/*.js", "tests/**", "*.ts"],
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommended,

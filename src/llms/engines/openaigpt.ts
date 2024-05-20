@@ -24,7 +24,7 @@ export class LLMEngineOpenAIGPT extends LLMEngineBase {
     const send_message = messages.filter((m) => {
       return ["user", "system", "function", "assistant"].includes(m.role);
     });
-    const chatStream = await this.openai.beta.chat.completions.stream({
+    const pipe = await this.openai.beta.chat.completions.stream({
       messages: send_message,
       model: model_name || "gpt-3.5-turbo",
       stream: true,
@@ -33,7 +33,7 @@ export class LLMEngineOpenAIGPT extends LLMEngineBase {
     });
 
     const current = [];
-    for await (const message of chatStream) {
+    for await (const message of pipe) {
       const token = message.choices[0].delta.content;
       if (token) {
         current.push(token);
@@ -44,7 +44,7 @@ export class LLMEngineOpenAIGPT extends LLMEngineBase {
       }
     }
 
-    const chatCompletion = await chatStream.finalChatCompletion();
+    const chatCompletion = await pipe.finalChatCompletion();
     const answer = chatCompletion.choices[0].message;
     const res = answer.content;
     const role = answer.role;

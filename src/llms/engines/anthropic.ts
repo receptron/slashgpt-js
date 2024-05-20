@@ -54,24 +54,34 @@ export class LLMEngineAnthropic extends LLMEngineBase {
         }
         return { role, content } as any;
       });
-    // console.log(JSON.stringify(send_message, null , "\t"), functions);
 
     const chatCompletion = await (() => {
       if (functions) {
         return this.anthropic.beta.tools.messages.create({
           system,
           max_tokens: 1024,
-          model: "claude-3-opus-20240229",
+          model: model_name,
           messages: send_message,
           tools: functions2tools(functions),
         }) as any;
       }
-      return this.anthropic.messages.create({
-        system,
-        max_tokens: 1024,
-        model: "claude-3-opus-20240229",
-        messages: send_message,
-      }) as any;
+      const stream = (callback?: (message: string) => void) => {
+        return new Promise((resolved, reject) => {
+          this.anthropic.messages.stream(
+            {
+              max_tokens: 1024,
+              model: model_name,
+              messages: send_message,
+            } as any).on('text', (t: any) => {
+              if (callback) {
+                callback(t);
+              }
+            }).on("finalMessage", (t: any) => {
+              resolved(t);
+            })
+        });
+      };
+      return stream(callbackStraming);
     })();
 
     const res = chatCompletion.content[0].text;
