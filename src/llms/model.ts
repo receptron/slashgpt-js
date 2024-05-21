@@ -6,6 +6,8 @@ import { ClientOptions } from "openai";
 
 import { LLMEngineBase, LLMEngineOpenAIGPT, LLMEngineAnthropic, LLMEngineHuggingface, LLMEngineGroq, LLMEngineReplicate } from "./engines";
 
+const default_model = "gpt-3.5-turbo";
+
 const default_llm_models = {
   gpt: {
     engine_name: "openai-gpt",
@@ -53,7 +55,7 @@ export class LlmModel {
   constructor(manifest: Manifest, option?: ClientOptions) {
     const model_name = manifest.model_name();
     const matched_model = Object.values(default_llm_models).find((model) => {
-      return model_name.startsWith(model.model_name);
+      return (model_name || default_model).startsWith(model.model_name);
     });
     if (matched_model) {
       this.model_data = matched_model;
