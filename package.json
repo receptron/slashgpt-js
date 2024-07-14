@@ -21,14 +21,14 @@
   "homepage": "https://github.com/isamu/slashgpt-js#readme",
   "devDependencies": {
     "@types/eventsource": "^1.1.15",
-    "@types/node": "^20.8.7",
-    "eslint": "^9.2.0",
-    "prettier": "^3.0.3",
-    "ts-node": "^10.9.1",
-    "tsc-alias": "^1.8.8",
+    "@types/node": "^20.14.10",
+    "eslint": "^9.7.0",
+    "prettier": "^3.3.3",
+    "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.10",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.4.3",
-    "typescript-eslint": "^7.8.0"
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^7.16.0"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.20.1",
