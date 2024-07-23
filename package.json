@@ -27,8 +27,8 @@
     "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.10",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.5.3",
-    "typescript-eslint": "^7.16.0"
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^7.17.0"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.24.3",
