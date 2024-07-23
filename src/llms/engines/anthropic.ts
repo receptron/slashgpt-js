@@ -56,7 +56,7 @@ export class LLMEngineAnthropic extends LLMEngineBase {
 
     const chatCompletion = await (() => {
       if (functions) {
-        return this.anthropic.beta.tools.messages.create({
+        return this.anthropic.messages.create({
           system,
           max_tokens: 1024,
           model: model_name,

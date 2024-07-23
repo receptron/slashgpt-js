@@ -5,12 +5,11 @@ import { LLMEngineBase } from "@/llms/engines/base";
 import { LlmModel } from "@/llms/model";
 
 import { ClientOptions } from "openai";
-import { ChatCompletionMessageParam } from "openai/resources/chat";
 
 import { Groq } from "groq-sdk";
-import { ChatCompletionCreateParams, ChatCompletionCreateParamsNonStreaming, ChatCompletionCreateParamsStreaming } from "groq-sdk/resources/chat/completions";
+import { ChatCompletionCreateParams, ChatCompletionCreateParamsNonStreaming, ChatCompletionCreateParamsStreaming, ChatCompletionToolChoiceOption } from "groq-sdk/resources/chat/completions";
 
-const get_tool_choice = (tools: any[]) => {
+const get_tool_choice = (tools: any[]): ChatCompletionToolChoiceOption => {
   return {
     type: "function",
     function: { name: tools[0]["function"]["name"] },
@@ -27,14 +26,14 @@ export class LLMEngineGroq extends LLMEngineBase {
     const api_key = this.llm_models.get_api_key();
     this.groq = api_key ? new Groq({ apiKey: api_key }) : new Groq();
   }
-  async chat_completion(messages: ChatCompletionMessageParam[], manifest: Manifest, verbose: boolean, callbackStraming?: (message: string) => void) {
+  async chat_completion(messages: any[], manifest: Manifest, verbose: boolean, callbackStraming?: (message: string) => void) {
     const tools = manifest.functions();
     const model_name = manifest.model_name();
 
     const send_message = messages.filter((m) => {
       return ["user", "system", "function", "assistant"].includes(m.role);
-    }) as Groq.Chat.CompletionCreateParams.Message[];
-
+    });
+    
     const streamOption: ChatCompletionCreateParamsStreaming = {
       messages: send_message,
       model: model_name,
@@ -55,7 +54,7 @@ export class LLMEngineGroq extends LLMEngineBase {
     }
     if (tools) {
       options.tools = tools;
-      options.tool_choice = get_tool_choice(tools) as Groq.Chat.CompletionCreateParams.ToolChoice;
+      options.tool_choice = get_tool_choice(tools);
     }
 
     if (!options.stream) {

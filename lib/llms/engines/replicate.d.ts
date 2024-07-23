@@ -5,7 +5,7 @@ import Replicate from "replicate";
 export declare class LLMEngineReplicate extends LLMEngineBase {
     replicate: Replicate;
     llm_models: LlmModel;
-    constructor(model: LlmModel, option?: any);
+    constructor(model: LlmModel, __option?: any);
     chat_completion(messages: any[], manifest: Manifest, verbose: boolean, callbackStraming?: (message: string) => void): Promise<{
         role: string;
         res: string;
