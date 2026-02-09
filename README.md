@@ -1,3 +1,4 @@
+[![npm version](https://badge.fury.io/js/slashgpt.svg)](https://badge.fury.io/js/slashgpt)
 # SlashGPT js
 
 This is ported from Python. This runs in the browser and Node.js.
@@ -47,4 +48,3 @@ The current status is...
 
 
 - *stream* (boolean, optional): Enable LLM output streaming (not yet implemented)
-
