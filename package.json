@@ -21,7 +21,7 @@
   "homepage": "https://github.com/isamu/slashgpt-js#readme",
   "devDependencies": {
     "@types/eventsource": "^1.1.15",
-    "@types/node": "^24.5.2",
+    "@types/node": "^25.5.2",
     "eslint": "^9.36.0",
     "prettier": "^3.6.2",
     "ts-node": "^10.9.2",
@@ -36,7 +36,7 @@
     "eventsource": "^2.0.2",
     "graphql": "^16.11.0",
     "graphql-request": "^6.1.0",
-    "groq-sdk": "^0.5.0",
+    "groq-sdk": "^1.1.2",
     "openai": "^4.53.0",
     "replicate": "^0.31.1",
     "yaml": "^2.4.5"
