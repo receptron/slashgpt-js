@@ -3,7 +3,7 @@ import { ChatData, LlmUsage } from "@/types";
 import Manifest from "@/manifest";
 import FunctionCall from "@/function/function_call";
 
-import { ChatCompletionMessageParam } from "openai/resources/chat";
+import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 
 export abstract class LLMEngineBase {
   abstract chat_completion(

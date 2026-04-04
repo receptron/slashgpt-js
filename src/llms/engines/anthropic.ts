@@ -7,7 +7,7 @@ import { LLMEngineBase } from "@/llms/engines/base";
 import { LlmModel } from "@/llms/model";
 
 import Anthropic, { ClientOptions } from "@anthropic-ai/sdk";
-import { ChatCompletionMessageParam } from "openai/resources/chat";
+import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 
 const functions2tools = (functions: { name: string; description: string; parameters: any }[]) => {
   return functions.map((f) => {

@@ -1,6 +1,6 @@
 import { LLMEngineBase } from "./base";
 import { ChatData, Manifest } from "../../types";
-import { ChatCompletionMessageParam } from "openai/resources/chat";
+import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 import { LlmModel } from "../../llms/model";
 export declare class LLMEngineHuggingface extends LLMEngineBase {
     llm_models: LlmModel;

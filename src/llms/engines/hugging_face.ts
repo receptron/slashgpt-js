@@ -2,7 +2,7 @@ import { LLMEngineBase } from "./base";
 
 import { ChatData, Manifest } from "@/types";
 
-import { ChatCompletionMessageParam } from "openai/resources/chat";
+import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 import { LlmModel } from "@/llms/model";
 
 import { chatCompletionStream } from "@huggingface/inference";
