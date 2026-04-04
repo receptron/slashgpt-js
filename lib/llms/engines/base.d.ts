@@ -1,7 +1,7 @@
 import { ChatData, LlmUsage } from "../../types";
 import Manifest from "../../manifest";
 import FunctionCall from "../../function/function_call";
-import { ChatCompletionMessageParam } from "openai/resources/chat";
+import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 export declare abstract class LLMEngineBase {
     abstract chat_completion(messages: ChatCompletionMessageParam[], manifest: Manifest, verbose: boolean, callbackStraming?: (message: string) => void): Promise<{
         role: string;

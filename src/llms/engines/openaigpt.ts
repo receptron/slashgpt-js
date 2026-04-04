@@ -7,7 +7,7 @@ import { LLMEngineBase } from "@/llms/engines/base";
 import { LlmModel } from "@/llms/model";
 
 import OpenAI, { ClientOptions } from "openai";
-import { ChatCompletionMessageParam } from "openai/resources/chat";
+import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 
 export class LLMEngineOpenAIGPT extends LLMEngineBase {
   openai: OpenAI;

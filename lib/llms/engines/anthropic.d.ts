@@ -4,7 +4,7 @@ import FunctionCall from "../../function/function_call";
 import { LLMEngineBase } from "../../llms/engines/base";
 import { LlmModel } from "../../llms/model";
 import Anthropic, { ClientOptions } from "@anthropic-ai/sdk";
-import { ChatCompletionMessageParam } from "openai/resources/chat";
+import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 export declare class LLMEngineAnthropic extends LLMEngineBase {
     anthropic: Anthropic;
     constructor(model: LlmModel, option?: ClientOptions);
