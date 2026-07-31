@@ -8,7 +8,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint src",
     "format": "prettier --write '{src,tests,resources,manifests}/**/*.{ts,json,yaml,yml}' eslint.config.mjs",
-    "test": "node --test  -r tsconfig-paths/register --require ts-node/register ./tests/*_test.ts"
+    "test": "node --test  -r tsconfig-paths/register --require ts-node/register ./tests/*_test.ts",
+    "knip": "knip"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
     "@types/node": "^26.1.2",
     "eslint": "^10.8.0",
     "globals": "^17.8.0",
+    "knip": "^6",
     "prettier": "^3.9.6",
     "ts-node": "^10.9.2",
     "tsc-alias": "^1.9.1",
