@@ -1,12 +1,7 @@
 import { ChatData } from "../types";
 import Manifest from "../manifest";
 import { ClientOptions } from "openai";
-type LLMModelData = {
-    engine_name: string;
-    model_name: string;
-    api_key: string;
-    max_token: number;
-};
+import { LLMModelData } from "./model_resolution";
 export declare class LlmModel {
     private engine;
     model_data: LLMModelData;

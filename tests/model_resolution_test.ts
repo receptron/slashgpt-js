@@ -1,5 +1,6 @@
 import { Manifest } from "@/index";
 import { LlmModel } from "@/llms/model";
+import { resolve_model_data } from "@/llms/model_resolution";
 import { LLMEngineOpenAIGPT, LLMEngineAnthropic, LLMEngineHuggingface, LLMEngineGroq, LLMEngineReplicate } from "@/llms/engines";
 
 import test from "node:test";
@@ -74,3 +75,50 @@ cases.forEach(([model, expected]) => {
     });
   },
 );
+
+const table = [gpt, mistral, claude, groq, replicate];
+const fragments = ["gpt", "GPT", "gpt-3.5-turbo", "claude", "claude-3-opus-20240229", "mistralai/Mistral-7B-Instruct-v0.2", "mixtral-8x7b-32768"];
+const more_fragments = ["stability-ai", "stability", "-", "/", " ", "x", "0", "constructor", "__proto__", "", "cl", "gp", "é", "🙂"];
+const generator_seed = 20260927;
+const generator_rounds = 3000;
+
+const seededModelNames = () => {
+  const all = [...fragments, ...more_fragments];
+  const state = { seed: generator_seed };
+  const next = (n: number) => {
+    state.seed = (state.seed * 1103515245 + 12345) % 2147483648;
+    return state.seed % n;
+  };
+  return Array.from({ length: generator_rounds }, () => Array.from({ length: next(4) }, () => all[next(all.length)]).join(""));
+};
+
+const expectedFor = (model: string): Expected | undefined => {
+  const by_table = table.find((entry) => (model || gpt.model_name).startsWith(entry.model_name));
+  if (by_table) return by_table;
+  if (model.startsWith("gpt")) return gpt;
+  if (model.startsWith("claude")) return claude;
+  return undefined;
+};
+
+test(`resolve_model_data and LlmModel agree with the lookup rule over generated names (seed ${generator_seed})`, () => {
+  seededModelNames().forEach((model) => {
+    const expected = expectedFor(model);
+    if (!expected) {
+      assert.throws(() => resolve_model_data(model), /no llm engine/, model);
+      assert.throws(() => new LlmModel(manifestFor(model), { apiKey: "dummy-key-for-test" }), /no llm engine/, model);
+      return;
+    }
+    const resolved = resolve_model_data(model);
+    assert.strictEqual(resolved.engine_name, expected.engine, model);
+    assert.strictEqual(resolved.api_key, expected.api_key, model);
+    assert.strictEqual(resolve_model_data(model), resolved, model);
+    const llm = new LlmModel(manifestFor(model), { apiKey: "dummy-key-for-test" });
+    assert.strictEqual(llm.model_data, resolved, model);
+    assert.ok(llm["engine"] instanceof expected.engineClass, model);
+  });
+});
+
+test("resolve_model_data treats a missing model name as the default gpt model", () => {
+  assert.deepStrictEqual(resolve_model_data(undefined), resolve_model_data("gpt-3.5-turbo"));
+  assert.strictEqual(resolve_model_data(""), resolve_model_data(undefined));
+});
