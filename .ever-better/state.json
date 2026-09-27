@@ -1,9 +1,9 @@
 {
   "version": 1,
   "tool": "ever-better",
-  "phase": "freeze",
-  "updatedAt": "2026-09-27T01:28:33.770Z",
-  "frozenAt": null,
+  "phase": "drain",
+  "updatedAt": "2026-09-27T01:39:53.797Z",
+  "frozenAt": "2026-09-27T01:39:53.796Z",
   "diagnosedAt": "2026-09-27T01:28:33.769Z",
   "diagnosedCommit": "f214d87c4965fef905a57c779f7a9fb384b04173",
   "diagnosis": {
@@ -74,6 +74,11 @@
     ]
   },
   "rules": {},
-  "counters": {},
+  "counters": {
+    "eslint:warnings": {
+      "baseline": 0,
+      "current": 0
+    }
+  },
   "log": []
 }

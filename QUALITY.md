@@ -3,8 +3,8 @@
 Maintained by [ever-better](https://github.com/isamu/ever-better). Numbers are rendered from
 `.ever-better/state.json`; edits outside the notes block are overwritten on the next run.
 
-- Phase: **freeze**
-- Frozen: not yet — run `ever-better freeze`
+- Phase: **drain**
+- Frozen: 2026-09-27T01:39:53.796Z
 - Open violations: **0**
 - Rules improved since the ceiling: **0**
 - Everything is at or below its ceiling.
@@ -15,8 +15,8 @@ Top to bottom. An unattended run works this list and nothing else.
 
 - [x] **P0 diagnose** — taken 2026-09-27T01:28:33.769Z
 - [x] **P1 bootstrap** — nothing missing
-- [ ] **P2 freeze** — baseline not pinned yet
-- [ ] **P3 drain** — backlog empty
+- [x] **P2 freeze** — frozen 2026-09-27T01:39:53.796Z
+- [x] **P3 drain** — backlog empty
 - [ ] **P4 tighten** — add the next rule tier, then freeze and drain again
 - [ ] **P5 duplication and dead code** — report-only scans; extraction is judgment, not a threshold
 
@@ -25,6 +25,12 @@ Top to bottom. An unattended run works this list and nothing else.
 Ceiling is the count at the last freeze. It may fall and must never rise.
 
 No rule violations recorded yet. Run `ever-better freeze`.
+
+## Other counters
+
+| Counter | Ceiling | Now |
+| --- | ---: | ---: |
+| eslint:warnings | 0 | 0 |
 
 ## Outstanding
 
