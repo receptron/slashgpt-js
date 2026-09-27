@@ -1,5 +1,6 @@
 import { http_request, graphQLRequest } from "@/function/network";
 import { replate_template } from "@/function/utils";
+import { get_appkey_value } from "@/function/appkey";
 
 class FuctionAction {
   private function_action_data: Record<string, string>;
@@ -55,27 +56,7 @@ class FuctionAction {
   }
 
   private get_appkey_value() {
-    const appkey = this.function_action_data.appkey;
-    const url = this.function_action_data.url;
-
-    if (!appkey) {
-      return null;
-    }
-    const appkey_value = process.env["SLASH_GPT_ENV_" + appkey] || "";
-    if (!appkey_value) {
-      console.log("Missing " + appkey + " in .env file.");
-    }
-
-    const param = appkey_value.split(",") || [];
-    if (param.length === 2) {
-      const parsed_url = new URL(url);
-      if (param[0] != parsed_url.hostname) {
-        console.log("Invalid appkey domain " + appkey + " in .env file.");
-        return null;
-      }
-      return param[1];
-    }
-    return appkey_value;
+    return get_appkey_value(this.function_action_data.appkey, this.function_action_data.url, process.env, console.log);
   }
 }
 
