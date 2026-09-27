@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "tool": "ever-better",
+  "phase": "freeze",
+  "updatedAt": "2026-09-27T01:28:33.770Z",
+  "frozenAt": null,
+  "diagnosedAt": "2026-09-27T01:28:33.769Z",
+  "diagnosedCommit": "f214d87c4965fef905a57c779f7a9fb384b04173",
+  "diagnosis": {
+    "packageManager": "yarn",
+    "language": "mixed",
+    "framework": "none",
+    "runtime": "node",
+    "typescriptFileRatio": 0.7105263157894737,
+    "tooling": {
+      "eslint": "flat",
+      "prettier": true,
+      "testRunner": "node:test",
+      "knip": true,
+      "jscpd": true,
+      "secretScanning": true,
+      "agentInstructions": []
+    },
+    "scripts": {
+      "lint": true,
+      "format": true,
+      "build": true,
+      "typecheck": true,
+      "test": true
+    },
+    "ci": {
+      "present": true,
+      "runners": [
+        "macos-latest",
+        "ubuntu-latest",
+        "windows-latest"
+      ],
+      "runsLint": true,
+      "runsTest": true,
+      "runsBuild": true,
+      "runsTypecheck": true,
+      "runsEverBetterCheck": true
+    },
+    "sizes": {
+      "total": 76,
+      "overFileLimit": 0,
+      "largest": []
+    },
+    "gaps": [
+      {
+        "id": "typescript-partial",
+        "title": "Only 71% of sources are TypeScript",
+        "detail": "The type-aware rules cover the typed part only, so the remaining .js files are the blind spot the counts will not show.",
+        "phase": "tighten"
+      },
+      {
+        "id": "agent-instructions",
+        "title": "No CLAUDE.md / AGENTS.md",
+        "detail": "Draining is done by agents. Rules that live only in your head produce a different fix every session.",
+        "phase": "drain"
+      },
+      {
+        "id": "weak-rules",
+        "title": "9 high-value rules are not enforcing (9 off, 0 warn-only)",
+        "detail": "Measured with `eslint --print-config`, not read from the config: @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-floating-promises, and 3 more. Each of these has cost somebody real bugs, and a rule that is off reports nothing to notice.",
+        "phase": "tighten"
+      },
+      {
+        "id": "tsconfig-strictness",
+        "title": "6 strictness flags `strict` does not include are off",
+        "detail": "Measured with `tsc --showConfig`, after every extends: noUncheckedIndexedAccess, exactOptionalPropertyTypes, noImplicitReturns, noFallthroughCasesInSwitch, noImplicitOverride, noPropertyAccessFromIndexSignature. Type errors have no suppression mechanism, so enable them one at a time and measure the cost first.",
+        "phase": "tighten"
+      }
+    ]
+  },
+  "rules": {},
+  "counters": {},
+  "log": []
+}
