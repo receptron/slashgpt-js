@@ -7,7 +7,12 @@ import { LlmModel } from "@/llms/model";
 import { ClientOptions } from "openai";
 
 import { Groq } from "groq-sdk";
-import { ChatCompletionCreateParams, ChatCompletionCreateParamsNonStreaming, ChatCompletionCreateParamsStreaming, ChatCompletionToolChoiceOption } from "groq-sdk/resources/chat/completions";
+import {
+  ChatCompletionCreateParams,
+  ChatCompletionCreateParamsNonStreaming,
+  ChatCompletionCreateParamsStreaming,
+  ChatCompletionToolChoiceOption,
+} from "groq-sdk/resources/chat/completions";
 
 const get_tool_choice = (tools: any[]): ChatCompletionToolChoiceOption => {
   return {
@@ -33,7 +38,7 @@ export class LLMEngineGroq extends LLMEngineBase {
     const send_message = messages.filter((m) => {
       return ["user", "system", "function", "assistant"].includes(m.role);
     });
-    
+
     const streamOption: ChatCompletionCreateParamsStreaming = {
       messages: send_message,
       model: model_name,

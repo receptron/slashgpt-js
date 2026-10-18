@@ -31,7 +31,7 @@ export class LLMEngineAnthropic extends LLMEngineBase {
     const functions = manifest.functions();
     const model_name = manifest.model_name();
 
-    const system = messages.length > 0 && messages[0].role === "system" ? messages[0].content ?? "" : undefined;
+    const system = messages.length > 0 && messages[0].role === "system" ? (messages[0].content ?? "") : undefined;
 
     const send_message = messages
       .filter((m) => {
