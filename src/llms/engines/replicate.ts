@@ -4,7 +4,7 @@ import { LLMEngineBase } from "@/llms/engines/base";
 import { LlmModel } from "@/llms/model";
 
 import Replicate from "replicate";
-import EventSource from "eventsource";
+import { EventSource } from "eventsource";
 
 export class LLMEngineReplicate extends LLMEngineBase {
   replicate: Replicate;
